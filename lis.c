@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 18:25:14 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/14 20:11:34 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/03/22 02:12:21 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,35 @@ void get_best(a_lis *lis,a_index *ind, list *node)
 		start++;
 		node = node->next;
 	}
-	// return(lis);
+}
+
+int check_lis(list *tt, a_lis *lis)
+{
+	int i = 0;
+
+	while(i < lis->len)
+	{
+		if (tt->data == lis->order[i])
+		{
+			return(1);
+		}
+		i++;
+	}
+	return(0);
+}
+
+void push_intilis(a_index *ind, b_index *ind_b, a_lis *lis)
+{
+	int i = 0;
+	int len = ind->size;
+	
+	while(i < len)
+	{
+		if  (!check_lis(ind->first_n, lis))
+			push_a_to_b(ind,ind_b);
+		else
+			ft_ra(ind); 
+		i++;
+	}
+	// print_stacks(ind,ind_b);
 }

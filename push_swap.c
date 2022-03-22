@@ -6,120 +6,157 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 06:36:19 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/16 21:56:45 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/03/22 02:13:11 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	init_list(int len, char **args,a_index *ind)
+int get_min(list *fisrt,int size)
 {
-	list *node_last = NULL;
-	list *node_first = NULL;
-	list *node = malloc(sizeof(list));
-	list *node_next;
-	int i = 1;
-
-	if(!node)
-		return ;
-	node->data = atoi(args[0]);
-    node->prev = node;
-    node->next = node;
-    node_first = node;
-	while(args[i])
-	{
-		node_next = malloc(sizeof(list));
-		if(!node_next)
-			return ;
-        node_next->data = atoi(args[i]);
-        node_next->next = node_first;
-        node->next = node_next;
-        node_last = node;
-        node = node->next;
-        node->prev = node_last;
-		i++;
-	}
-
-	node_last = node;
-	node = node->next;
-	node->prev = node_last;
-	node->data = 1;
-	ind->first_n = node_first;
-	ind->last_n = node_last;
-}
-void	init_list_b(b_index *ind_b)
-{
-
-	ind_b->first_n = NULL;
-	ind_b->last_n = NULL;
-	ind_b->size = 0;
-}
-
-int	get_nb_count(int ac, char **av)
-{
-	int i = 1;
-	int j = 0;
-	int	x = 0;
-	char **temp;
-
-	while(i < ac)
-	{
-		if(ft_strchr(av[i] ,' '))
-		{
-			j = 0;
-			temp = ft_split(av[i] ,' ');
-			while(temp[j])
-			{
-				x++;
-				j++;
-			}
-			free_tab(temp);
-		}
-		else
-			x++;
-		i++;
-	}
-	printf("\n%d\n",x);
-	return(x);
-}
-
-a_args *init_args(int ac, char **av, a_args *args)
-{
-	int i = 1;
-	int j = 0;
-	int	x = 0;
-	char **temp;
-
-	args->tab = malloc(sizeof(char *) * get_nb_count(ac, av) + 1);
-	while(i < ac)
-	{
-		if(ft_strchr(av[i] ,' '))
-		{
-			j = 0;
-			temp = ft_split(av[i] ,' ');
-			while(temp[j])
-				args->tab[x++] = strdup(temp[j++]);
-		}
-		else
-			args->tab[x++] = strdup(av[i]);
-		i++;
-	}
-	args->tab[x + 1] = NULL;
-	args->len = x;
-	printf("\n%d\n",x);
-	return(args);
-}
-
-void free_tab(char **tab)
-{
+	list *t;
 	int i = 0;
+	int min;
 
-	while(tab[i])
+	t = fisrt;
+	min = t->data;
+	while(i < size)
 	{
-		free(tab[i]);
+		if (t->data < min)
+			min = t->data;
+		i++;
+		t = t->next;
+	}
+	return(min);
+}
+
+int get_max(list *fisrt,int size)
+{
+	list *t;
+	int i = 0;
+	int max;
+
+	t = fisrt;
+	max = t->data;
+	while(i < size)
+	{
+		if (t->data > max)
+			max = t->data;
+		i++;
+		t = t->next;
+	}
+	return(max);
+}
+
+void return_in_place(a_index *ind , b_index *ind_b)
+{
+	int s;
+	int i = 0;
+	int j = 0;
+	list *temp = ind->first_n;
+
+	while(ind_b->size)
+	{
+		j = 0;
+		while(ind_b->size)
+		{
+			s = ind_b->first_n->data;
+			if (get_max(ind->first_n,ind->size) == ind->first_n->data && s > ind->first_n->data)
+			{
+				ft_ra(ind);
+				push_b_to_a(ind, ind_b);
+				// print_stacks(ind,ind_b);
+			}
+			// else if (s < ind->first_n->data && s > ind->first_n->next ->data)
+			// {
+			// 	ft_rra(ind);
+			// 	push_b_to_a(ind, ind_b);
+			// 	print_stacks(ind,ind_b);
+			// }
+			else if (s < ind->first_n->data && s > ind->first_n->prev ->data)
+			{
+				push_b_to_a(ind, ind_b);
+			}
+			else if (s > ind->first_n->data && s < ind->first_n->next ->data)
+			{
+				ft_ra(ind);
+				push_b_to_a(ind, ind_b);
+			}
+			else if (s < ind->first_n->data && s > ind->first_n->next ->data)
+			{
+				push_b_to_a(ind, ind_b);
+			}
+			else if (get_min(ind->first_n,ind->size) > s)
+			{
+				while(ind->first_n->data != get_min(ind->first_n,ind->size))
+				ft_ra(ind);
+				push_b_to_a(ind, ind_b);
+			}
+			else if (get_max(ind->first_n,ind->size) < s)
+			{
+				while(ind->first_n->data != get_max(ind->first_n,ind->size))
+					ft_ra(ind);
+				ft_ra(ind);
+				push_b_to_a(ind, ind_b);
+			}
+			else
+			{
+				while (s > ind->first_n->data && s > ind->first_n->next->data)
+					ft_rra(ind);
+				if (s < ind->first_n->data && s > ind->first_n->next ->data)
+				{
+					ft_rra(ind);
+					push_b_to_a(ind, ind_b);
+				}
+				else if (s > ind->first_n->data && s < ind->first_n->next ->data)
+				{
+					ft_ra(ind);
+					push_b_to_a(ind, ind_b);
+				}
+				else if (s < ind->first_n->data && s > ind->first_n->prev ->data)
+				{
+					push_b_to_a(ind, ind_b);
+				}
+				else
+					push_b_to_a(ind, ind_b);
+			}
+				
+			j++;
+		}
 		i++;
 	}
-	free(tab);
+}
+
+void final_sort(a_index *ind)
+{
+	int s = get_min(ind->first_n , ind->size);
+
+	while(ind->first_n->data != s)
+		ft_ra(ind);
+}
+
+void print_stacks(a_index *ind, b_index *ind_b)
+{
+	list *node;
+	int i = 0;
+	
+		i  = 0;
+	node = ind->first_n;
+	while(i < ind->size)
+	{
+		printf("stack a = <%d>\n",node->data);
+		node = node->next;
+		i++;
+	}
+	printf("<---------------->\n");
+	i = 0;
+	node = ind_b->first_n;
+	while(i < ind_b->size)
+	{
+		printf("stack b = <%d>\n",node->data);
+		node = node->next;
+		i++;
+	}
 }
 
 int main (int ac, char **av)
@@ -133,7 +170,7 @@ int main (int ac, char **av)
 	a_lis *lis = malloc(sizeof(a_lis));
 	list *node;
 	a_args *args = malloc(sizeof(a_args));
-	args = init_args(ac, av, args);
+	init_args(ac, av, args);
 	check_isdigit(args->len,args->tab);
 	check_int(args->len,args->tab);
 	check_duplictes(args->len,args->tab);
@@ -145,26 +182,51 @@ int main (int ac, char **av)
 	// node = ind->first_n;
 	// push_b_to_a(ind,ind_b);
 	get_best(lis,ind, ind->first_n);
+	if (check_sroted(ind))
+	{
+		puts("sorted");
+		exit(0);
+	}
+	push_intilis(ind, ind_b, lis);
+	return_in_place(ind,ind_b);
+	if (check_nearly_sroted(ind))
+	{
+		// puts("nearly_sorted");
+		final_sort(ind);
+		// if (check_sroted(ind))
+		// 	// puts("sorted");/
+	}
+	// while(ind->size)
+	// {
+		// push_a_to_b(ind,ind_b);
+	// }
+	// while (i < lis->len)
+	// {
+	// 	printf("%d\n",lis->order[i]);
+	// 	i++;
+	// }
+	// delete_node(ind->first_n,ind);
+	// delete_node(ind->first_n,ind);
+	// print_stacks(ind,ind_b);
+	// i  =0 ;
+	// node = ind->first_n;
+	// while(i < ind->size)
+	// {
+	// 	printf("stack a = <%d>\n",node->data);
+	// 	node = node->next;
+	// 	i++;
+	// }
+	// printf("<---------------->\n");
+	// i = 0;
+	// node = ind_b->first_n;
+	// while(i < ind_b->size)
+	// {
+	// 	printf("stack b = <%d>\n",node->data);
+	// 	node = node->next;
+	// 	i++;
+	// }
 	// ft_rra(ind);
-	while(ind->size)
-	{
-		push_a_to_b(ind,ind_b);
-	}
-	// ind_b->size += 1; 
-	// ft_sa(ind->first_n);
-	// delete_node(node,ind);
-	i = 0;
-	node = ind_b->first_n;
-	while(i < ind_b->size)
-	{
-		printf("%d\n",node->data);
-		node = node->next;
-		i++;
-	}
-	free(ind);
-	free(ind_b);
-	free(lis);
-	free(args);
-	while(1);
 	return(0);
 }
+
+

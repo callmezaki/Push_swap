@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 21:18:25 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/16 22:53:33 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/03/21 22:38:16 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 void ft_sa(a_index *ind)
 {
-	list *temp;
+	list *temp = malloc(sizeof(list));
 
 	temp->data = ind->first_n->data;
 	ind->first_n->data = ind->first_n->next->data;
 	ind->first_n->next->data = temp->data;
+	free(temp);
 	write(1,"sa\n",4);
 }
 
 void ft_sb(b_index *ind_b)
 {
-	list *temp;
+	list *temp = malloc(sizeof(list));;
 
 	temp->data = ind_b->first_n->data;
 	ind_b->first_n->data = ind_b->first_n->next->data;
@@ -34,8 +35,8 @@ void ft_sb(b_index *ind_b)
 
 void ft_ss(b_index *ind_b,a_index *ind)
 {
-	list *temp_a;
-	list *temp_b;
+	list *temp_a = malloc(sizeof(list));
+	list *temp_b = malloc(sizeof(list));
 
 	temp_a->data = ind->first_n->data;
 	ind->first_n->data = ind->first_n->next->data;
@@ -49,17 +50,15 @@ void ft_ss(b_index *ind_b,a_index *ind)
 
 void ft_ra(a_index *ind)
 {
-	list *temp;
 
-	temp->data = ind->first_n->data;
-	ind->first_n->data = ind->first_n->prev->data;
-	ind->first_n->prev->data = temp->data;
+	ind->first_n = ind->first_n->next;
+	ind->last_n = ind->last_n->next;
 	write(1,"ra\n",4);
 }
 
 void ft_rb(b_index *ind_b)
 {
-	list *temp;
+	list *temp = malloc(sizeof(list));
 
 	temp->data = ind_b->first_n->data;
 	ind_b->first_n->data = ind_b->first_n->prev->data;
@@ -69,8 +68,8 @@ void ft_rb(b_index *ind_b)
 
 void ft_rr(a_index *ind,b_index *ind_b)
 {
-	list *temp_a;
-	list *temp_b;
+	list *temp_a = malloc(sizeof(list));
+	list *temp_b = malloc(sizeof(list));
 
 	temp_a->data = ind->first_n->data;
 	ind->first_n->data = ind->first_n->prev->data;

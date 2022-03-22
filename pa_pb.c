@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:19:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/16 21:32:14 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/03/21 02:21:11 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ void delete_node(list *from,a_index *ind)
 	else
 	{
 		if (from == ind->last_n)
+		{
+			ind->last_n = from->prev;
 			ind->first_n = from->next;
+		}
 		from->prev->next = from->next;
 		from->next->prev = from->prev;
 		from = from->next;
 	}
-	free(from);
+	// free(from);
 	ind->size -= 1;
 }
 void delete_node_b(list *from,b_index *ind)
@@ -85,7 +88,7 @@ void push_a_to_b(a_index *ind, b_index *ind_b)
 		ind_b->last_n = ind_b->first_n;
 	}
 	ind_b->size += 1;
-	write(1,"pa\n",4);
+	write(1,"pb\n",4);
 }
 
 void push_b_to_a(a_index *ind, b_index *ind_b)
@@ -117,5 +120,5 @@ void push_b_to_a(a_index *ind, b_index *ind_b)
 		ind->last_n = ind->first_n;
 	}
 	ind->size += 1;
-	write(1,"pb\n",4);
+	write(1,"pa\n",4);
 }

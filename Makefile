@@ -7,11 +7,14 @@ SRC =	push_swap.c \
 		ft_strchr.c \
 		ft_strlen.c \
 		ft_split.c \
+		ft_strdup.c \
 		moves.c \
 		lis.c \
 		pa_pb.c \
+		sorting.c \
+		ft_init.c \
 
-CFLAGS = -g 
+CFLAGS = -g
 
 OBJS = $(SRC:.c=.o)
 OBJ_B = $(SRC_B:.c=.o)

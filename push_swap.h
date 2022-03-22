@@ -12,13 +12,6 @@ typedef struct s_list
 	struct s_list *prev;
 } list;
 
-// typedef struct l_b
-// {
-// 	int data;
-// 	struct l_b *next;
-// 	struct l_b *prev;
-// } sl_b;
-
 typedef struct s_index
 {
 	list *first_n;
@@ -73,5 +66,16 @@ void		push_b_to_a(a_index *ind, b_index *ind_b);
 a_lis		get_lis(a_index *ind, list *node, int start ,a_lis lis);
 void		get_best(a_lis *lis,a_index *ind, list *node);
 void		free_tab(char **tab);
+char		*ft_strdup(const char *src);
+int			check_nearly_sroted(a_index *ind);
+int			check_sroted(a_index *ind);
+void		push_intilis(a_index *ind, b_index *ind_b, a_lis *lis);
+int			check_lis(list *tt, a_lis *lis);
+void		init_list(int len, char **args,a_index *ind);
+void		init_list_b(b_index *ind_b);
+int			get_nb_count(int ac, char **av);
+void		init_args(int ac, char **av, a_args *args);
+void print_stacks(a_index *ind, b_index *ind_b);
+
 
 #endif
