@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:44:27 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/12 16:55:25 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/03/23 03:37:02 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int check_isdigit(int len, char **args)
 				j++;
 			if (!ft_isdigit(args[i][j]))
 			{
-				write(1,args[i],strlen(args[i]));
+				write(1,args[i],ft_strlen(args[i]));
 				write(1," this is not a digit brother\n",30);
 				exit(EXIT_FAILURE);
 				return(0);

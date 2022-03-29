@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 18:25:14 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/22 02:12:21 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/03/28 22:11:04 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void get_best(a_lis *lis,a_index *ind, list *node)
 	int start = 0;
 	int i = 0;
 	int j;
-
+	// temp.len = 0;
 	while (start < ind->size)
 	{
 		temp = get_lis(ind, node, start,*lis);
@@ -89,5 +89,5 @@ void push_intilis(a_index *ind, b_index *ind_b, a_lis *lis)
 			ft_ra(ind); 
 		i++;
 	}
-	// print_stacks(ind,ind_b);
+	// exit(1);
 }

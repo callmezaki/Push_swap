@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:59:24 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/21 23:03:38 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/03/28 22:11:40 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	init_list(int len, char **args,a_index *ind)
 	ind->first_n = node_first;
 	ind->last_n = node_last;
 	ind->size = i;
+	// free(node);
+	// free(node_next);
 }
 void	init_list_b(b_index *ind_b)
 {
@@ -97,6 +99,7 @@ void	init_args(int ac, char **av, a_args *args)
 			{
 				args->tab[x++] = ft_strdup(temp[j++]);
 			}
+			free_tab(temp);
 		}
 		else
 		{

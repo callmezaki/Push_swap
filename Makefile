@@ -1,6 +1,5 @@
 NAME = push_swap
 INCLUDE = push_swap.h
-# INCLUDE_B = push_swap.h
 SRC =	push_swap.c \
 		ft_atoi.c \
 		args_check.c \

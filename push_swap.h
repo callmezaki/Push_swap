@@ -41,6 +41,16 @@ typedef struct s_args
 	int len;
 
 }	a_args;
+typedef struct s_moves
+{
+	int indix_a;
+	int indix_b;
+	int ra;
+	int rra;
+	int rb;
+	int rrb;
+
+}	moves;
 
 long long	ft_atoi(const char *str);
 int			ft_isdigit(int c);
