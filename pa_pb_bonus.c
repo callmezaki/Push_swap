@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pa_pb.c                                            :+:      :+:    :+:   */
+/*   pa_pb_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:19:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/02 10:44:21 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/02 13:54:23 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 void	delete_node(t_list *from, t_a_index *ind)
 {
@@ -70,6 +70,7 @@ void	push_a_to_b(t_a_index *ind, t_b_index *ind_b)
 		ind_b->first_n->prev->prev = stock;
 		ind_b->first_n->prev->prev->next = save;
 		ind_b->first_n = ind_b->first_n->prev;
+		ind_b->first_n = ind_b->first_n;
 	}
 	else
 	{
@@ -78,7 +79,6 @@ void	push_a_to_b(t_a_index *ind, t_b_index *ind_b)
 		ind_b->first_n->prev = ind_b->first_n;
 	}
 	ind_b->size += 1;
-	write(1, "pb\n", 3);
 }
 
 void	push_b_to_a(t_a_index *ind, t_b_index *ind_b)
@@ -86,7 +86,7 @@ void	push_b_to_a(t_a_index *ind, t_b_index *ind_b)
 	t_list	*save;
 	t_list	*stock;
 
-	if (!ind_b->size)
+	if (!ind_b->first_n)
 		return ;
 	save = ind_b->first_n;
 	delete_node_b(ind_b->first_n, ind_b);
@@ -106,5 +106,18 @@ void	push_b_to_a(t_a_index *ind, t_b_index *ind_b)
 		ind->first_n->prev = ind->first_n;
 	}
 	ind->size += 1;
-	write(1, "pa\n", 3);
+}
+
+void	free_stack(t_a_index *ind)
+{
+	t_list		*t;
+
+	while (ind->size)
+	{
+		t = ind->first_n;
+		ind->first_n = ind->first_n->next;
+		free(t);
+		ind->size--;
+	}
+	free(ind);
 }

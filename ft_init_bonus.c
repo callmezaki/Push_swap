@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init.c                                          :+:      :+:    :+:   */
+/*   ft_init_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:59:24 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/03 13:30:36 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:26:22 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 t_list	*init_node(t_list *node, char *data)
 {
 	node = malloc(sizeof(t_list));
 	if (!node)
-		exit(1);
+		return (NULL);
 	node->data = ft_atoi(data);
 	node->prev = node;
 	node->next = node;
@@ -37,7 +37,7 @@ void	init_list(char **args, t_a_index *ind, int i)
 	{
 		node_next = malloc(sizeof(t_list));
 		if (!node_next)
-			exit(1);
+			return ;
 		node_next->data = ft_atoi(args[i]);
 		node_next->next = node_first;
 		node->next = node_next;
@@ -67,7 +67,6 @@ int	get_nb_count(int ac, char **av)
 	char	**temp;
 
 	i = 1;
-	j = 0;
 	x = 0;
 	while (i < ac)
 	{
@@ -95,7 +94,7 @@ void	init_args(int ac, char **av, t_args *args)
 
 	i = 0;
 	x = 0;
-	args->tab = ma_pro_tab(args->tab, get_nb_count(ac, av) + 1);
+	args->tab = malloc(sizeof(char *) * get_nb_count(ac, av) + 1);
 	while (++i < ac)
 	{
 		if (ft_strchr(av[i], ' '))

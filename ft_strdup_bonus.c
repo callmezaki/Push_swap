@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strdup_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 10:06:33 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/31 19:21:03 by zait-sli         ###   ########.fr       */
+/*   Created: 2021/11/05 11:59:37 by zait-sli          #+#    #+#             */
+/*   Updated: 2022/03/31 19:50:33 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
+#include <stdlib.h>
 
-long long	ft_atoi(const char *str)
+char	*ft_strdup(const char *src)
 {
-	size_t	i;
-	size_t	sign;
-	size_t	result;
+	int		i;
+	char	*dup;
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\n'
-		|| str[i] == '\r' || str[i] == '\t' || str[i] == '\v')
-		i++;
-	if (str[i] == '-')
-		sign *= -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	i = ft_strlen(src);
+	dup = (char *)malloc(i + 1);
+	if (dup == NULL)
 	{
-		result = (result * 10) + str[i] - '0';
+		return (0);
+	}
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dup[i] = src[i];
 		i++;
 	}
-	return (result * sign);
+	dup[i] = '\0';
+	return (dup);
 }

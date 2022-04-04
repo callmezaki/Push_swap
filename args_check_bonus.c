@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_check.c                                       :+:      :+:    :+:   */
+/*   args_check_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 16:44:27 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/03 13:31:55 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:16:45 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 int	ft_isdigit(int c)
 {
@@ -32,7 +32,7 @@ int	check_isdigit(int len, char **args)
 		if (!ft_strlen(args[i]))
 		{
 			write(1, "Error\n", 6);
-			exit(1);
+			exit(0);
 		}
 		while (args[i][j])
 		{
@@ -41,7 +41,7 @@ int	check_isdigit(int len, char **args)
 			if (!ft_isdigit(args[i][j]))
 			{
 				write(1, "Error\n", 6);
-				exit(1);
+				exit(0);
 			}
 			j++;
 		}
@@ -63,7 +63,7 @@ int	check_duplictes(int len, char **args)
 			if (ft_atoi(args[i]) == ft_atoi(args[j]))
 			{
 				write(1, "Error\n", 6);
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 			j++;
 		}
@@ -82,17 +82,22 @@ int	check_int(int len, char **args)
 		if (ft_atoi(args[i]) > 2147483647 || ft_atoi(args[i]) < -2147483648)
 		{
 			write(1, "Error\n", 6);
-			exit(EXIT_FAILURE);
+			exit(1);
 		}
 		i++;
 	}
 	return (1);
 }
 
-char	**ma_pro_tab(char **tab, int len)
+void	free_tab(char **tab)
 {
-	tab = malloc(sizeof(char *) * len);
-	if (!tab)
-		exit(1);
-	return (tab);
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

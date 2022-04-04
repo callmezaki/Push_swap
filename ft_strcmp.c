@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 10:11:45 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/31 19:21:23 by zait-sli         ###   ########.fr       */
+/*   Created: 2021/11/04 10:49:19 by zait-sli          #+#    #+#             */
+/*   Updated: 2022/03/31 12:32:14 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t	i;
+	size_t	a;
 
-	i = 0;
-	while (str[i])
-	{
-		i++;
-	}
-	return (i);
+	a = 0;
+	while (s1[a] && s2[a] && s1[a] == s2[a])
+		a++;
+	return (((unsigned char *)s1)[a] - ((unsigned char *)s2)[a]);
 }

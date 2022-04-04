@@ -6,26 +6,24 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:07:25 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/11 21:52:33 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:51:53 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 char	*ft_strchr(const char *s, int c)
 {
-	int		i;
-	char	*sf;
+	int	i;
 
-	sf = (char *)s;
 	i = 0;
-	while ((size_t)i <= ft_strlen(sf))
+	if (!s)
+		return (NULL);
+	while (s[i] != (char)c)
 	{
-		if (s[i] == (char)c)
-		{
-			return (&((char *)sf)[i]);
-		}
+		if (s[i] == '\0')
+			return (NULL);
 		i++;
 	}
-	return (0);
+	return ((char *)s);
 }

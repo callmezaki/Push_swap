@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 12:10:24 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/03 13:32:07 by zait-sli         ###   ########.fr       */
+/*   Created: 2022/03/31 12:10:15 by zait-sli          #+#    #+#             */
+/*   Updated: 2022/04/03 13:32:14 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_H
+# define CHECKER_H
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -41,13 +41,6 @@ typedef struct st_b_index
 	int		size;
 
 }	t_b_index;
-
-typedef struct t_lis
-{
-	int		*order;
-	int		len;
-
-}	t_lis;
 
 typedef struct s_args
 {
@@ -89,42 +82,22 @@ void		delete_node(t_list *from, t_a_index *ind);
 void		delete_node_b(t_list *from, t_b_index *ind);
 void		push_a_to_b(t_a_index *ind, t_b_index *ind_b);
 void		push_b_to_a(t_a_index *ind, t_b_index *ind_b);
-t_lis		get_lis(t_a_index *ind, t_list *node, int start, t_lis lis);
-void		get_best(t_lis *lis, t_a_index *ind, t_list *node);
 void		free_tab(char **tab);
 char		*ft_strdup(const char *src);
-int			check_nearly_sroted(t_a_index *ind);
 int			check_sroted(t_a_index *ind);
-void		push_intilis(t_a_index *ind, t_b_index *ind_b, t_lis *lis);
-int			check_lis(t_list *tt, t_lis *lis);
 void		init_list(char **args, t_a_index *ind, int i);
 void		init_list_b(t_b_index *ind_b);
 int			get_nb_count(int ac, char **av);
 void		init_args(int ac, char **av, t_args *args);
-void		final_sort(t_a_index *ind);
-int			node_to_top(t_a_index *ind, int data);
-int			node_to_top_b(t_b_index *ind_b, int data);
-int			get_min(t_list *fisrt, int size);
-int			get_max(t_list *fisrt, int size);
-int			ft_indix(t_a_index *ind, int data);
-int			ft_indix_b(t_b_index *ind, int data);
-void		return_in_place(t_a_index *ind, t_b_index *ind_b);
-void		final_sort(t_a_index *ind);
-void		three_sort(t_a_index *ind);
-void		five_sort(t_a_index *ind, t_b_index *ind_b);
-int			node_to_top(t_a_index *ind, int data);
-int			node_to_top_b(t_b_index *ind_b, int data);
-void		best_b_to_push(t_moves *mv, t_b_index *ind_b, t_a_index *ind);
-void		ft_rot(t_moves *mv, t_a_index *ind, t_b_index *ind_b);
-int			calculate_a(t_moves *mv);
-int			calculate_b(t_moves *mv);
-void		count_moves(t_a_index *ind, t_list *wanted, t_moves *mv);
-void		b_count_moves(t_b_index *ind_b, t_list *t, t_moves *mv);
+char		*get_next_line(int fd);
+char		*ft_strjoin(char *s1, char *s2);
+char		*ft_strchr(const char *s, int c);
+char		*get_next_line(int fd);
+size_t		ft_strlen(const char *str);
+void		free_stacks(t_a_index *ind, t_b_index *ind_b);
 t_a_index	*ma_pro_a(t_a_index *ind);
 t_b_index	*ma_pro_b(t_b_index *ind);
 t_args		*ma_pro_args(t_args *args);
-int			*ma_pro_arr(int *ar, int len);
-t_moves		*ma_pro_mv(t_moves *mv);
 char		**ma_pro_tab(char **tab, int len);
 
 #endif

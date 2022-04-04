@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 03:47:04 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/03/31 20:13:07 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/03/31 19:49:51 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "push_swap.h"
+#include "checker.h"
 
 static int	words_count(char *s, char c)
 {
