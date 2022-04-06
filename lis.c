@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 18:25:14 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/02 16:54:09 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:53:21 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,27 @@ t_lis	get_lis(t_a_index *ind, t_list *node, int start, t_lis lis)
 	return (lis);
 }
 
+int	get_best_len(t_lis *lis, t_a_index *ind, t_list *node)
+{
+	t_lis	temp;
+	int		start;
+	int		best;
+
+	start = 0;
+	while (start < ind->size)
+	{
+		temp = get_lis(ind, node, start,*lis);
+		if (start == 0)
+			best = temp.len;
+		else if (temp.len > lis->len)
+			best = temp.len;
+		free(temp.order);
+		start++;
+		node = node->next;
+	}
+	return (best);
+}
+
 void	get_best(t_lis *lis, t_a_index *ind, t_list *node)
 {
 	t_lis	temp;
@@ -81,8 +102,12 @@ void	get_best(t_lis *lis, t_a_index *ind, t_list *node)
 		temp = get_lis(ind, node, start,*lis);
 		if (start == 0)
 			*lis = temp;
-		else if (temp.len > lis->len)
+		else if (temp.len != get_best_len(lis, ind, node))
+		{
 			*lis = temp;
+			return ;
+		}
+		free(temp.order);
 		start++;
 		node = node->next;
 	}
@@ -102,21 +127,4 @@ int	check_lis(t_list *tt, t_lis *lis)
 		i++;
 	}
 	return (0);
-}
-
-void	push_intilis(t_a_index *ind, t_b_index *ind_b, t_lis *lis)
-{
-	int		i;
-	int		len;
-
-	i = 0;
-	len = ind->size;
-	while (i < len && ind->size > lis->len)
-	{
-		if (!check_lis(ind->first_n, lis))
-			push_a_to_b(ind, ind_b);
-		else
-			ft_ra(ind);
-		i++;
-	}
 }

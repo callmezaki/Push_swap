@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 09:30:01 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/02 09:57:02 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/05 02:23:46 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ void	five_sort(t_a_index *ind, t_b_index *ind_b)
 	three_sort(ind);
 	push_b_to_a(ind, ind_b);
 	push_b_to_a(ind, ind_b);
-	exit(EXIT_SUCCESS);
 }

@@ -6,45 +6,28 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 06:36:19 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/02 16:50:33 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:08:57 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_tab(char **tab)
+void	push_intilis(t_a_index *ind, t_b_index *ind_b, t_lis *lis)
 {
-	int	i;
+	int		i;
+	int		len;
 
 	i = 0;
-	while (tab[i])
+	len = ind->size;
+	while (i < len && ind->size > lis->len)
 	{
-		free(tab[i]);
+		if (!check_lis(ind->first_n, lis))
+			push_a_to_b(ind, ind_b);
+		else
+			ft_ra(ind);
 		i++;
 	}
-	free(tab);
-}
-
-void	ft_sort(t_a_index	*ind, t_b_index	*ind_b)
-{
-	t_lis		*lis;
-
-	lis = malloc(sizeof(t_lis));
-	if (!lis)
-		exit(0);
-	if (check_nearly_sroted(ind))
-		final_sort(ind);
-	else if (ind->size == 3)
-		three_sort(ind);
-	else if (ind->size == 5)
-		five_sort(ind, ind_b);
-	else
-	{
-		get_best(lis, ind, ind->first_n);
-		push_intilis(ind, ind_b, lis);
-		return_in_place(ind, ind_b);
-		free(lis);
-	}
+	free(lis->order);
 }
 
 void	free_stacks(t_a_index *ind, t_b_index *ind_b)
@@ -62,6 +45,51 @@ void	free_stacks(t_a_index *ind, t_b_index *ind_b)
 	free(ind_b);
 }
 
+void	ft_sort(t_a_index	*ind, t_b_index	*ind_b)
+{
+	t_lis		*lis;
+
+	if (check_nearly_sroted(ind))
+		final_sort(ind);
+	else if (ind->size == 3)
+		three_sort(ind);
+	else if (ind->size == 5)
+		five_sort(ind, ind_b);
+	else
+	{
+		lis = malloc(sizeof(t_lis));
+		if (!lis)
+		{
+			free_stacks(ind, ind_b);
+			exit(0);
+		}
+		get_best(lis, ind, ind->first_n);
+		push_intilis(ind, ind_b, lis);
+		return_in_place(ind, ind_b);
+		final_sort(ind);
+		free(lis);
+	}
+}
+
+void	check_args(t_args *args)
+{
+	int	k;
+
+	k = 0;
+	if (!check_isdigit(args->len, args->tab))
+		k = 1;
+	else if (!check_int(args->len, args->tab))
+		k = 1;
+	else if (!check_duplictes(args->len, args->tab))
+		k = 1;
+	if (k == 1)
+	{
+		free_tab(args->tab);
+		free(args);
+		exit(0);
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_a_index	*ind;
@@ -73,20 +101,16 @@ int	main(int ac, char **av)
 	ind = NULL;
 	ind_b = NULL;
 	args = NULL;
-	ind = ma_pro_a(ind);
-	ind_b = ma_pro_b(ind_b);
 	args = ma_pro_args(args);
 	init_args(ac, av, args);
-	check_isdigit(args->len, args->tab);
-	check_int(args->len, args->tab);
-	check_duplictes(args->len, args->tab);
+	check_args(args);
+	ind = ma_pro_a(ind);
+	ind_b = ma_pro_b(ind_b);
 	init_list(args->tab, ind, 0);
-	init_list_b(ind_b);
 	free_tab(args->tab);
-	if (check_sroted(ind))
-		exit(0);
+	free(args);
+	init_list_b(ind_b);
 	ft_sort(ind, ind_b);
 	free_stacks(ind, ind_b);
-	free(args);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }

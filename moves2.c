@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 21:18:25 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/02 15:51:11 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:53:06 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,17 @@ void	ft_rrr(t_a_index *ind, t_b_index *ind_b)
 	ind->first_n = ind->first_n->prev;
 	ind_b->first_n = ind_b->first_n->prev;
 	write(1, "rrr\n", 4);
+}
+
+void	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

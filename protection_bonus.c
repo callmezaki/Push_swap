@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:35:00 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/03 13:32:22 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/06 12:29:00 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,6 @@ t_args	*ma_pro_args(t_args *args)
 	if (!args)
 		exit(1);
 	return (args);
-}
-
-void	free_stacks(t_a_index *ind, t_b_index *ind_b)
-{
-	t_list		*t;
-
-	while (ind->size)
-	{
-		t = ind->first_n;
-		ind->first_n = ind->first_n->next;
-		free(t);
-		ind->size--;
-	}
-	free(ind);
-	free(ind_b);
 }
 
 char	**ma_pro_tab(char **tab, int len)

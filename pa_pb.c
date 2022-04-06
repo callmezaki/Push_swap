@@ -6,7 +6,7 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:19:52 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/02 10:44:21 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:37:54 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	push_a_to_b(t_a_index *ind, t_b_index *ind_b)
 		return ;
 	save = ind->first_n;
 	delete_node(ind->first_n, ind);
-	if (ind_b->first_n)
+	if (ind_b->size)
 	{
 		stock = ind_b->first_n->prev;
 		ind_b->first_n->prev = save;
@@ -90,7 +90,7 @@ void	push_b_to_a(t_a_index *ind, t_b_index *ind_b)
 		return ;
 	save = ind_b->first_n;
 	delete_node_b(ind_b->first_n, ind_b);
-	if (ind->first_n)
+	if (ind->size)
 	{
 		stock = ind->first_n->prev;
 		ind->first_n->prev = save;

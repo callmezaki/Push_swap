@@ -6,15 +6,16 @@
 /*   By: zait-sli <zait-sli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 12:02:04 by zait-sli          #+#    #+#             */
-/*   Updated: 2022/04/02 15:25:57 by zait-sli         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:09:10 by zait-sli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-void	exit_ft(void)
+void	exit_ft( t_a_index *ind, t_b_index *ind_b)
 {
 	write(2, "Error\n", 6);
+	free_stacks(ind, ind_b);
 	exit(1);
 }
 
@@ -43,30 +44,7 @@ void	compare_move(char *str, t_a_index *ind, t_b_index *ind_b)
 	else if (!ft_strcmp(str, "pb\n"))
 		push_a_to_b(ind, ind_b);
 	else
-		exit_ft();
-}
-
-int	check_sroted(t_a_index *ind)
-{
-	t_list	*temp;
-	int		len;
-	int		j;
-
-	len = 0;
-	temp = ind->first_n;
-	while (len < ind->size)
-	{
-		j = 0;
-		while (j < ind->size && temp->data < temp->next->data)
-		{
-			temp = temp->next;
-			j++;
-		}
-		if (j == ind->size - 1)
-			return (1);
-		len++;
-	}
-	return (0);
+		exit_ft(ind, ind_b);
 }
 
 void	read_check(t_a_index *ind, t_b_index *ind_b)
@@ -80,10 +58,31 @@ void	read_check(t_a_index *ind, t_b_index *ind_b)
 		free(line);
 		line = get_next_line(0);
 	}
+	if (line)
+		free(line);
 	if (check_sroted(ind) && ind_b->size == 0)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
+}
+
+void	check_args(t_args *args)
+{
+	int	k;
+
+	k = 0;
+	if (!check_isdigit(args->len, args->tab))
+		k = 1;
+	else if (!check_int(args->len, args->tab))
+		k = 1;
+	else if (!check_duplictes(args->len, args->tab))
+		k = 1;
+	if (k == 1)
+	{
+		free_tab(args->tab);
+		free(args);
+		exit(0);
+	}
 }
 
 int	main(int ac, char **av)
@@ -97,18 +96,16 @@ int	main(int ac, char **av)
 	ind = NULL;
 	ind_b = NULL;
 	args = NULL;
-	ind = ma_pro_a(ind);
-	ind_b = ma_pro_b(ind_b);
 	args = ma_pro_args(args);
 	init_args(ac, av, args);
-	check_isdigit(args->len, args->tab);
-	check_int(args->len, args->tab);
-	check_duplictes(args->len, args->tab);
+	check_args(args);
+	ind = ma_pro_a(ind);
+	ind_b = ma_pro_b(ind_b);
 	init_list(args->tab, ind, 0);
-	init_list_b(ind_b);
 	free_tab(args->tab);
+	free(args);
+	init_list_b(ind_b);
 	read_check(ind, ind_b);
 	free_stacks(ind, ind_b);
-	free(args);
 	exit(EXIT_SUCCESS);
 }
